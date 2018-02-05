@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity {
 
     QuestionBank allQuestions = new QuestionBank();
@@ -39,7 +41,13 @@ public class MainActivity extends AppCompatActivity {
         progressLabel = findViewById(R.id.progress_label);
         progressBar = findViewById(R.id.progress_bar);
 
+        // Hide all the input views
         hideAll();
+
+        // Shuffle the array to change the order of the questions
+        Collections.shuffle(allQuestions.list);
+
+        // Ask the first question
         nextQuestion();
 
     }
@@ -313,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
     private void restart() {
         questionNumber = 0;
         score = 0;
+        Collections.shuffle(allQuestions.list);
         nextQuestion();
 
     }

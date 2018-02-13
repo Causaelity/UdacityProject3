@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,20 +37,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        questionLabel = (TextView) findViewById(R.id.question_textview);
+        questionLabel = findViewById(R.id.question_textview);
         scoreLabel = findViewById(R.id.score_label);
         progressLabel = findViewById(R.id.progress_label);
         progressBar = findViewById(R.id.progress_bar);
 
+        if (savedInstanceState != null) {
+            allQuestions.list = (ArrayList<Question>) savedInstanceState.getSerializable("questionList");
+            score = savedInstanceState.getInt("score");
+            questionNumber = savedInstanceState.getInt("questionNumber");
+        } else {
+            // This is first run, shuffle the questions
+            // Shuffle the array to change the order of the questions
+            Collections.shuffle(allQuestions.list);
+        }
         // Hide all the input views
         hideAll();
 
-        // Shuffle the array to change the order of the questions
-        Collections.shuffle(allQuestions.list);
-
         // Ask the first question
         nextQuestion();
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("questionList", allQuestions.list);
+        outState.putInt("score", score);
+        outState.putInt("questionNumber", questionNumber);
     }
 
     // Get Screen Width for Progress Bar
@@ -119,18 +134,18 @@ public class MainActivity extends AppCompatActivity {
             fullQuestion += "\nd) " + allQuestions.list.get(questionNumber).questionSet.get("d");
 
             // Determine which Input mode to display
-            QuestionType type = (QuestionType) allQuestions.list.get(questionNumber).questionSet.get("format");
+            int type = (int) allQuestions.list.get(questionNumber).questionSet.get("format");
             switch (type) {
-                case BUTTON:
+                case Question.BUTTON:
                     showButtons();
                     break;
-                case RADIO:
+                case Question.RADIO:
                     showRadioButtons();
                     break;
-                case CHECKBOX:
+                case Question.CHECKBOX:
                     showCheckBoxes();
                     break;
-                case TEXTENTRY:
+                case Question.TEXTENTRY:
                     showTextEntry();
                     // Rewrite question for this format
                     fullQuestion = allQuestions.list.get(questionNumber).questionSet.get("question").toString();
@@ -167,9 +182,9 @@ public class MainActivity extends AppCompatActivity {
         // check text edit or checkbox question
         String correctAnswer = allQuestions.list.get(questionNumber).questionSet.get("answer").toString();
 
-        QuestionType type = (QuestionType) allQuestions.list.get(questionNumber).questionSet.get("format");
+        int type = (int) allQuestions.list.get(questionNumber).questionSet.get("format");
 
-        if (type == QuestionType.TEXTENTRY) {
+        if (type == Question.TEXTENTRY) {
             EditText answerField = findViewById(R.id.answer_field);
             String proposedAnswer = answerField.getText().toString();
 
@@ -184,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
             // For Checkbox, determine which combination was chosen and compare score.
             // After calculated, unselect checkbox
-        } else if (type == QuestionType.CHECKBOX) {
+        } else if (type == Question.CHECKBOX) {
             int checkBoxSum = 0;
             CheckBox buttonA = findViewById(R.id.checkbox_a);
             CheckBox buttonB = findViewById(R.id.checkbox_b);

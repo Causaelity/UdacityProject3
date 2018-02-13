@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#246bbe"
-    tools:context="net.drunkdogs.quizzler.MainActivity"
-    >
+    android:orientation="vertical"
+    tools:context="net.drunkdogs.quizzler.MainActivity">
 
 
     <RelativeLayout
@@ -18,11 +17,11 @@
             android:id="@+id/title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Civics Quiz"
-            android:textSize="24sp"
-            android:textColor="#ffffff"
             android:layout_marginTop="4dp"
             android:gravity="center"
+            android:text="Civics Quiz"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
             android:textStyle="bold"
 
             />
@@ -32,18 +31,26 @@
             android:id="@+id/question_textview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Question Goes Here."
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeMaxTextSize="18sp"
-            android:autoSizeStepGranularity="2sp"
-            android:textColor="#ffffff"
-            android:layout_margin="8dp"
-            android:layout_below="@+id/title_textview"
-            android:layout_alignParentRight="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/title_textview"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            tools:text="Question Goes Here."
+            android:textColor="#ffffff"
 
-             />
+            />
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:autoSizeMaxTextSize="18sp"-->
+            <!--android:autoSizeMinTextSize="10sp"-->
+            <!--android:autoSizeStepGranularity="2sp"-->
+            <!--android:autoSizeTextType="uniform"-->
+            <!--/>-->
 
 
     </RelativeLayout>
@@ -57,56 +64,32 @@
             android:id="@+id/button_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/topLayoutMargin"
-            >
+            android:layout_marginTop="48dp">
 
             <Button
                 android:id="@+id/button_a"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="A"
-                android:layout_marginLeft="@dimen/buttonMargin"
-                android:textColor="#FFFFFF"
+                style="@style/questionButton"
                 android:background="#2a9033"
-                android:onClick="answerPressed"
-                />
+                android:text="A" />
 
             <Button
                 android:id="@+id/button_b"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/buttonMargin"
-                android:text="B"
-                android:textColor="#FFFFFF"
+                style="@style/questionButton"
                 android:background="#b32a35"
-                android:onClick="answerPressed"
-                />
+                android:text="B" />
+
             <Button
                 android:id="@+id/button_c"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/buttonMargin"
-                android:text="C"
-                android:textColor="#FFFFFF"
+                style="@style/questionButton"
                 android:background="#ef3f1d"
-                android:onClick="answerPressed"
-                />
+                android:text="C" />
 
             <Button
                 android:id="@+id/button_d"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="D"
-                android:layout_marginLeft="@dimen/buttonMargin"
+                style="@style/questionButton"
                 android:layout_marginRight="@dimen/buttonMargin"
-                android:textColor="#FFFFFF"
                 android:background="#5123a1"
-                android:onClick="answerPressed"
-                />
+                android:text="D" />
 
         </LinearLayout>
 
@@ -120,27 +103,23 @@
             <CheckBox
                 android:id="@+id/checkbox_a"
                 style="@style/checkBox"
-                android:layout_marginLeft="16dp"
-                android:text="A"
-                />
+                android:layout_marginLeft="24dp"
+                android:text="A" />
 
             <CheckBox
                 android:id="@+id/checkbox_b"
                 style="@style/checkBox"
-                android:text="B"
-                />
+                android:text="B" />
 
             <CheckBox
                 android:id="@+id/checkbox_c"
                 style="@style/checkBox"
-                android:text="C"
-                />
+                android:text="C" />
 
             <CheckBox
                 android:id="@+id/checkbox_d"
                 style="@style/checkBox"
-                android:text="D"
-                />
+                android:text="D" />
 
         </LinearLayout>
 
@@ -148,51 +127,44 @@
             android:id="@+id/radio_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="@dimen/topLayoutMargin"
-            >
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radiobutton_a"
-                android:layout_marginLeft="24dp"
                 style="@style/radioButton"
-                android:text="A"
-                />
+                android:layout_marginLeft="24dp"
+                android:text="A" />
 
             <RadioButton
                 android:id="@+id/radiobutton_b"
                 style="@style/radioButton"
-                android:text="B"
-                />
+                android:text="B" />
 
             <RadioButton
                 android:id="@+id/radiobutton_c"
                 style="@style/radioButton"
-                android:text="C"
-                />
+                android:text="C" />
 
             <RadioButton
                 android:id="@+id/radiobutton_d"
                 style="@style/radioButton"
-                android:text="D"
-                />
+                android:text="D" />
 
 
         </RadioGroup>
 
         <EditText
             android:id="@+id/answer_field"
-            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorStandard"
-            android:textColorHint="@color/colorStandard"
-            android:hint="Name"
-            android:backgroundTint="@color/colorStandard"
-            android:drawableTint="@color/colorStandard"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-
+            android:backgroundTint="@color/colorStandard"
+            android:hint="Name"
+            android:inputType="text"
+            android:textColor="@color/colorStandard"
+            android:textColorHint="@color/colorStandard"
             />
 
 
@@ -200,52 +172,47 @@
             android:id="@+id/progress_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="x/99"
-            android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="16dp"
             android:layout_marginBottom="36dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#FFFFFF"
             android:textSize="17sp"
-            />
+            tools:text="x/99" />
 
         <TextView
             android:id="@+id/score_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score: 9999"
-            android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="36dp"
+            android:layout_marginRight="16dp"
+            android:textColor="#FFFFFF"
             android:textSize="17sp"
-            />
-        
+            tools:text="Score: 9999" />
+
         <View
             android:id="@+id/progress_bar"
             android:layout_width="24dp"
             android:layout_height="14dp"
-            android:background="#dba714"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:background="#dba714"
 
             />
+
         <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="90dp"
+            android:layout_marginBottom="24dp"
             android:background="#dba714"
-            android:textColor="#FFFFFF"
-            android:text="Submit"
             android:onClick="submitPressed"
-            />
-
-
-
+            android:text="Submit"
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -37,7 +37,7 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/title_textview"
             android:layout_margin="8dp"
-            android:textSize="18sp"
+            android:textSize="14sp"
             tools:text="Question Goes Here."
             android:textColor="#ffffff"
 

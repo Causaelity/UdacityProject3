@@ -26,10 +26,17 @@ public class MainActivity extends AppCompatActivity {
     int questionNumber = 0;
     int score = 0;
     final int numberOfQuestions = allQuestions.list.size();
+
+    // Create Views
     TextView questionLabel;
     TextView scoreLabel;
     TextView progressLabel;
     View progressBar;
+    LinearLayout buttonLayout;
+    RadioGroup radioLayout;
+    LinearLayout checkBoxLayout;
+    Button submitButton;
+    EditText answerField;
 
 
 
@@ -37,10 +44,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Setup views
         questionLabel = findViewById(R.id.question_textview);
         scoreLabel = findViewById(R.id.score_label);
         progressLabel = findViewById(R.id.progress_label);
         progressBar = findViewById(R.id.progress_bar);
+        buttonLayout = findViewById(R.id.button_layout);
+        radioLayout = findViewById(R.id.radio_layout);
+        checkBoxLayout = findViewById(R.id.checkbox_layout);
+        submitButton = findViewById(R.id.submit_button);
+        answerField = findViewById(R.id.answer_field);
+
+
+
 
         if (savedInstanceState != null) {
             allQuestions.list = (ArrayList<Question>) savedInstanceState.getSerializable("questionList");
@@ -74,56 +91,40 @@ public class MainActivity extends AppCompatActivity {
 
     // Hide all the Input Views
     private void hideAll() {
-        LinearLayout buttonLayout = findViewById(R.id.button_layout);
+
         buttonLayout.setVisibility(View.INVISIBLE);
-
-        RadioGroup radioLayout = findViewById(R.id.radio_layout);
         radioLayout.setVisibility(View.INVISIBLE);
-
-        LinearLayout checkBoxLayout = findViewById(R.id.checkbox_layout);
         checkBoxLayout.setVisibility(View.INVISIBLE);
-
-        Button button = findViewById(R.id.submit_button);
-        button.setVisibility(View.INVISIBLE);
-
-        EditText answerField = findViewById(R.id.answer_field);
+        submitButton.setVisibility(View.INVISIBLE);
         answerField.setVisibility(View.INVISIBLE);
     }
 
     // Display Button Input View
     private void showButtons() {
-        LinearLayout buttonLayout = findViewById(R.id.button_layout);
         buttonLayout.setVisibility(View.VISIBLE);
     }
 
     // Display Checkbox View and Submit Button
     private void showCheckBoxes() {
-        LinearLayout checkBoxLayout = findViewById(R.id.checkbox_layout);
         checkBoxLayout.setVisibility(View.VISIBLE);
-
-        Button button = findViewById(R.id.submit_button);
-        button.setVisibility(View.VISIBLE);
+        submitButton.setVisibility(View.VISIBLE);
     }
 
     // Display Radio Buttons
     private void showRadioButtons() {
-        RadioGroup radioLayout = findViewById(R.id.radio_layout);
         radioLayout.setVisibility(View.VISIBLE);
     }
 
     // Display Text Entry and Submit Button
     private void showTextEntry() {
-
-        EditText answerField = findViewById(R.id.answer_field);
         answerField.setVisibility(View.VISIBLE);
-
-        Button button = findViewById(R.id.submit_button);
-        button.setVisibility(View.VISIBLE);
+        submitButton.setVisibility(View.VISIBLE);
 
     }
 
     // Display next question and enable appropriate input mechanism. Else if game is over display alert
     private void nextQuestion() {
+
         if (questionNumber <= numberOfQuestions - 1) {
 
             // Build out Question
@@ -205,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
             CheckBox buttonB = findViewById(R.id.checkbox_b);
             CheckBox buttonC = findViewById(R.id.checkbox_c);
             CheckBox buttonD = findViewById(R.id.checkbox_d);
+
             if (buttonA.isChecked()) {
                 checkBoxSum += 2;
                 buttonA.setChecked(false);
@@ -244,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Button or Radio Group question.  Determine if answer is correct and uncheck (if applicable)
     public void answerPressed(View view) {
-        RadioButton radioButton;
         switch(view.getId()) {
             case R.id.button_a:
                 pickedAnswer = "a";
@@ -260,26 +261,21 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.radiobutton_a:
                 pickedAnswer = "a";
-                radioButton = findViewById(R.id.radiobutton_a);
-                radioButton.setChecked(false);
                 break;
             case R.id.radiobutton_b:
                 pickedAnswer = "b";
-                radioButton = findViewById(R.id.radiobutton_b);
-                radioButton.setChecked(false);
                 break;
             case R.id.radiobutton_c:
                 pickedAnswer = "c";
-                radioButton = findViewById(R.id.radiobutton_c);
-                radioButton.setChecked(false);
                 break;
             case R.id.radiobutton_d:
                 pickedAnswer = "d";
-                radioButton = findViewById(R.id.radiobutton_d);
-                radioButton.setChecked(false);
                 break;
             default:
         }
+
+        // Reset Radio Buttons
+        radioLayout.clearCheck();
 
         checkAnswer();
 

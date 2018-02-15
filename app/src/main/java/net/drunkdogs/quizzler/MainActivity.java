@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     int questionNumber = 0;
     int score = 0;
     final int numberOfQuestions = allQuestions.list.size();
+    boolean noRadioSelected = false;
 
     // Create Views
     TextView questionLabel;
@@ -33,10 +34,14 @@ public class MainActivity extends AppCompatActivity {
     TextView progressLabel;
     View progressBar;
     LinearLayout buttonLayout;
-    RadioGroup radioLayout;
+    RadioGroup radioGroup;
     LinearLayout checkBoxLayout;
     Button submitButton;
     EditText answerField;
+    RadioButton radioButtonA;
+    RadioButton radioButtonB;
+    RadioButton radioButtonC;
+    RadioButton radioButtonD;
 
 
 
@@ -51,14 +56,17 @@ public class MainActivity extends AppCompatActivity {
         progressLabel = findViewById(R.id.progress_label);
         progressBar = findViewById(R.id.progress_bar);
         buttonLayout = findViewById(R.id.button_layout);
-        radioLayout = findViewById(R.id.radio_layout);
+        radioGroup = findViewById(R.id.radio_layout);
         checkBoxLayout = findViewById(R.id.checkbox_layout);
         submitButton = findViewById(R.id.submit_button);
         answerField = findViewById(R.id.answer_field);
+        radioButtonA = findViewById(R.id.radiobutton_a);
+        radioButtonB = findViewById(R.id.radiobutton_b);
+        radioButtonC = findViewById(R.id.radiobutton_c);
+        radioButtonD = findViewById(R.id.radiobutton_d);
 
 
-
-
+        // Deal with Screen rotations
         if (savedInstanceState != null) {
             allQuestions.list = (ArrayList<Question>) savedInstanceState.getSerializable("questionList");
             score = savedInstanceState.getInt("score");
@@ -93,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private void hideAll() {
 
         buttonLayout.setVisibility(View.INVISIBLE);
-        radioLayout.setVisibility(View.INVISIBLE);
+        radioGroup.setVisibility(View.INVISIBLE);
         checkBoxLayout.setVisibility(View.INVISIBLE);
         submitButton.setVisibility(View.INVISIBLE);
         answerField.setVisibility(View.INVISIBLE);
@@ -112,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Display Radio Buttons
     private void showRadioButtons() {
-        radioLayout.setVisibility(View.VISIBLE);
+        radioGroup.setVisibility(View.VISIBLE);
+        submitButton.setVisibility(View.VISIBLE);
     }
 
     // Display Text Entry and Submit Button
@@ -158,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             updateUI();
 
         } else {
-            // No more questions, display Alert.
+            // No more questions, Quiz over! Display Alert.
             hideAll();
             scoreLabel.setText("Score: " + score);
 
@@ -168,16 +177,16 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart",
                     new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        public void onClick(DialogInterface dialog, int i) {
                             restart();
-                            dialogInterface.dismiss();
+                            dialog.dismiss();
                         }
                     });
             alertDialog.show();
         }
     }
 
-    // Verify answer for questions that require the submit button
+    // Verify answer for all questions
     public void submitPressed(View view) {
 
         // check text edit or checkbox question
@@ -189,12 +198,9 @@ public class MainActivity extends AppCompatActivity {
             EditText answerField = findViewById(R.id.answer_field);
             String proposedAnswer = answerField.getText().toString();
 
-            if (correctAnswer.toLowerCase().equals(proposedAnswer.toLowerCase())) {
-                showToast(true);
-                score += 1;
-            } else {
-                showToast(false);
-            }
+            pickedAnswer = proposedAnswer.toLowerCase();
+            checkAnswer(correctAnswer.toLowerCase());
+
             // Reset answer field to nothing for future questions and or runs
             answerField.setText("");
 
@@ -227,13 +233,40 @@ public class MainActivity extends AppCompatActivity {
                 buttonD.setChecked(false);
             }
 
-            String checkBoxAnswer = "" + checkBoxSum;
-            if (checkBoxAnswer.equals(correctAnswer)) {
-                showToast(true);
-                score += 1;
+            pickedAnswer = "" + checkBoxSum;
+            checkAnswer(correctAnswer);
+
+        } else if (type == Question.RADIO) {
+            checkRadioButtons();
+            if (noRadioSelected) {
+                AlertDialog dialog = new AlertDialog.Builder(this).create();
+                dialog.setTitle("Nothing Selected");
+                dialog.setMessage("Please pick an answer!");
+                dialog.show();
+                noRadioSelected = false;
+                return;
             } else {
-                showToast(false);
+                // check answer
+                checkAnswer(correctAnswer);
             }
+        } else if (type == Question.BUTTON) {
+            switch(view.getId()) {
+                case R.id.button_a:
+                    pickedAnswer = "a";
+                    break;
+                case R.id.button_b:
+                    pickedAnswer = "b";
+                    break;
+                case R.id.button_c:
+                    pickedAnswer = "c";
+                    break;
+                case R.id.button_d:
+                    pickedAnswer = "d";
+                    break;
+                default:
+                    break;
+            }
+            checkAnswer(correctAnswer);
         }
 
         hideAll();
@@ -244,50 +277,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Button or Radio Group question.  Determine if answer is correct and uncheck (if applicable)
-    public void answerPressed(View view) {
-        switch(view.getId()) {
-            case R.id.button_a:
-                pickedAnswer = "a";
-                break;
-            case R.id.button_b:
-                pickedAnswer = "b";
-                break;
-            case R.id.button_c:
-                pickedAnswer = "c";
-                break;
-            case R.id.button_d:
-                pickedAnswer = "d";
-                break;
-            case R.id.radiobutton_a:
-                pickedAnswer = "a";
-                break;
-            case R.id.radiobutton_b:
-                pickedAnswer = "b";
-                break;
-            case R.id.radiobutton_c:
-                pickedAnswer = "c";
-                break;
-            case R.id.radiobutton_d:
-                pickedAnswer = "d";
-                break;
-            default:
-        }
+    private void checkRadioButtons() {
+        if (radioButtonA.isChecked()) { pickedAnswer = "a"; }
+        else if (radioButtonB.isChecked()) { pickedAnswer = "b"; }
+        else if (radioButtonC.isChecked()) { pickedAnswer = "c"; }
+        else if (radioButtonD.isChecked()) { pickedAnswer = "d"; }
+        else { noRadioSelected = true; }
 
-        // Reset Radio Buttons
-        radioLayout.clearCheck();
-
-        checkAnswer();
-
-        questionNumber += 1;
-
-        nextQuestion();
-
+        radioGroup.clearCheck();
     }
 
+
     // Verify if Answer was correct and inform user and add score
-    private void checkAnswer() {
-        String correctAnswer = allQuestions.list.get(questionNumber).questionSet.get("answer").toString();
+    private void checkAnswer(String correctAnswer) {
 
         if (correctAnswer.equals(pickedAnswer)) {
             showToast(true);
@@ -295,8 +297,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             showToast(false);
         }
-
-        hideAll();
     }
 
     // Inform user is answer was correct or not

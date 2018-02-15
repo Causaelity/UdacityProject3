@@ -22,7 +22,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorStandard</item>
         <item name="android:buttonTint">@color/colorStandard</item>
-        <item name="android:onClick">answerPressed</item>
+
     </style>
 
     <style name="questionButton">
@@ -30,7 +30,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/buttonMargin</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:onClick">answerPressed</item>
+        <item name="android:onClick">submitPressed</item>
         <item name="android:textColor">#FFFFFF</item>
 
 

@@ -39,6 +39,7 @@ public class Question {
 
     /**
      * Create Enum replacement
+     * Type Def is required because Enums are "bad" in Java
      */
 
     // Constants

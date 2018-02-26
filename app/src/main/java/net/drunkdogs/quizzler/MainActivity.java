@@ -2,6 +2,7 @@ package net.drunkdogs.quizzler;
 
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,19 +30,15 @@ public class MainActivity extends AppCompatActivity {
     boolean noRadioSelected = false;
 
     // Create Views
-    TextView questionLabel;
-    TextView scoreLabel;
-    TextView progressLabel;
+    TextView questionLabel, scoreLabel, progressLabel;
     View progressBar;
-    LinearLayout buttonLayout;
+    LinearLayout buttonLayout, checkBoxLayout;
     RadioGroup radioGroup;
-    LinearLayout checkBoxLayout;
     Button submitButton;
     EditText answerField;
-    RadioButton radioButtonA;
-    RadioButton radioButtonB;
-    RadioButton radioButtonC;
-    RadioButton radioButtonD;
+    RadioButton radioButtonA, radioButtonB, radioButtonC, radioButtonD;
+
+    final Handler handler = new Handler();
 
 
 
@@ -273,7 +270,15 @@ public class MainActivity extends AppCompatActivity {
 
         questionNumber += 1;
 
-        nextQuestion();
+        // introduce delay
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                nextQuestion();
+            }
+        }, 2000);
+
+//        nextQuestion();
 
     }
 

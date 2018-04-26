@@ -18,15 +18,15 @@ import java.util.Map;
  */
 
 // Define the question Types
-//enum QuestionType {
-//    BUTTON, RADIO, CHECKBOX, TEXTENTRY
-//}
+enum QuestionType {
+    BUTTON, RADIO, CHECKBOX, TEXTENTRY
+}
 
 // Question Class to hold various types of question formats
-public class Question {
-    public Map questionSet = new HashMap<>();
+class Question {
+    Map questionSet = new HashMap<>();
 
-    public Question(String questionText, String answer1, String answer2, String answer3, String answer4, String correctAnswer, @QuestionType int type) {
+    Question(String questionText, String answer1, String answer2, String answer3, String answer4, String correctAnswer, QuestionType type) {
         questionSet.put("question", questionText);
         questionSet.put("a", answer1);
         questionSet.put("b", answer2);
@@ -36,22 +36,6 @@ public class Question {
         questionSet.put("format", type);
 
     }
-
-    /**
-     * Create Enum replacement
-     * Type Def is required because Enums are "bad" in Java
-     */
-
-    // Constants
-    public static final int BUTTON = 0;
-    public static final int RADIO = 1;
-    public static final int CHECKBOX = 2;
-    public static final int TEXTENTRY = 3;
-
-    // Declare the @IntDef for these constants
-    @IntDef({BUTTON, RADIO, CHECKBOX, TEXTENTRY})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface QuestionType {}
 
 }
 

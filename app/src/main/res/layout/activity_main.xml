@@ -36,7 +36,7 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/title_textview"
             android:layout_margin="8dp"
-            android:textSize="14sp"
+            android:textSize="18sp"
             tools:text="Question Goes Here."
             android:textColor="#ffffff"
 
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/topLayoutMargin"
-            android:gravity="center_horizontal">
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/checkbox_a"

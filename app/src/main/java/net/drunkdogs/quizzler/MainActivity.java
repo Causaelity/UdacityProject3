@@ -1,13 +1,16 @@
 package net.drunkdogs.quizzler;
 
+import android.animation.ValueAnimator;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     RadioButton radioButtonA, radioButtonB, radioButtonC, radioButtonD;
 
     final Handler handler = new Handler();
-
 
 
     @Override
@@ -141,18 +144,18 @@ public class MainActivity extends AppCompatActivity {
             fullQuestion += "\nd) " + allQuestions.list.get(questionNumber).questionSet.get("d");
 
             // Determine which Input mode to display
-            int type = (int) allQuestions.list.get(questionNumber).questionSet.get("format");
+            QuestionType type = (QuestionType) allQuestions.list.get(questionNumber).questionSet.get("format");
             switch (type) {
-                case Question.BUTTON:
+                case BUTTON:
                     showButtons();
                     break;
-                case Question.RADIO:
+                case RADIO:
                     showRadioButtons();
                     break;
-                case Question.CHECKBOX:
+                case CHECKBOX:
                     showCheckBoxes();
                     break;
-                case Question.TEXTENTRY:
+                case TEXTENTRY:
                     showTextEntry();
                     // Rewrite question for this format
                     fullQuestion = allQuestions.list.get(questionNumber).questionSet.get("question").toString();
@@ -160,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             questionLabel.setText(fullQuestion);
+//            questionLabel.setTextColor(Color.RED);  // Test line to confirm how Color works.
 
             updateUI();
 
@@ -189,9 +193,9 @@ public class MainActivity extends AppCompatActivity {
         // check text edit or checkbox question
         String correctAnswer = allQuestions.list.get(questionNumber).questionSet.get("answer").toString();
 
-        int type = (int) allQuestions.list.get(questionNumber).questionSet.get("format");
+        QuestionType type = (QuestionType) allQuestions.list.get(questionNumber).questionSet.get("format");
 
-        if (type == Question.TEXTENTRY) {
+        if (type == QuestionType.TEXTENTRY) {
             EditText answerField = findViewById(R.id.answer_field);
             String proposedAnswer = answerField.getText().toString();
 
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
             // For Checkbox, determine which combination was chosen and compare score.
             // After calculated, unselect checkbox
-        } else if (type == Question.CHECKBOX) {
+        } else if (type == QuestionType.CHECKBOX) {
             int checkBoxSum = 0;
             CheckBox buttonA = findViewById(R.id.checkbox_a);
             CheckBox buttonB = findViewById(R.id.checkbox_b);
@@ -211,29 +215,29 @@ public class MainActivity extends AppCompatActivity {
             CheckBox buttonD = findViewById(R.id.checkbox_d);
 
             if (buttonA.isChecked()) {
-                checkBoxSum += 2;
+                checkBoxSum += 1;
                 buttonA.setChecked(false);
             }
 
             if (buttonB.isChecked()) {
-                checkBoxSum += 4;
+                checkBoxSum += 2;
                 buttonB.setChecked(false);
             }
 
             if (buttonC.isChecked()) {
-                checkBoxSum += 8;
+                checkBoxSum += 4;
                 buttonC.setChecked(false);
             }
 
             if (buttonD.isChecked()) {
-                checkBoxSum += 16;
+                checkBoxSum += 8;
                 buttonD.setChecked(false);
             }
 
             pickedAnswer = "" + checkBoxSum;
             checkAnswer(correctAnswer);
 
-        } else if (type == Question.RADIO) {
+        } else if (type == QuestionType.RADIO) {
             checkRadioButtons();
             if (noRadioSelected) {
                 AlertDialog dialog = new AlertDialog.Builder(this).create();
@@ -246,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 // check answer
                 checkAnswer(correctAnswer);
             }
-        } else if (type == Question.BUTTON) {
+        } else if (type == QuestionType.BUTTON) {
             switch(view.getId()) {
                 case R.id.button_a:
                     pickedAnswer = "a";
@@ -278,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
 
+        // In case you don't want the delay
 //        nextQuestion();
 
     }
@@ -328,9 +333,25 @@ public class MainActivity extends AppCompatActivity {
         if (parentWidth == 0) {
             parentWidth = getScreenWidth();
         }
-        // Update progress Bar to show how far in the quiz we are
-        progressBar.getLayoutParams().width = parentWidth / numberOfQuestions * (questionNumber + 1);
-//        progressBar.requestLayout();
+
+        // Update progress Bar to show how far in the quiz we are (pre animation)
+//        progressBar.getLayoutParams().width = parentWidth / numberOfQuestions * (questionNumber + 1);
+
+        // Updated to use animation instead
+        ValueAnimator anim = ValueAnimator.ofInt(progressBar.getMeasuredWidth(), parentWidth / numberOfQuestions * (questionNumber + 1));
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int val = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = progressBar.getLayoutParams();
+                layoutParams.width = val;
+                progressBar.setLayoutParams(layoutParams);
+            }
+        });
+
+        anim.setDuration(500);
+        anim.start();
+
     }
 
     // Restart the game for another attempt.

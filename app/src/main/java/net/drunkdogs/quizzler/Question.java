@@ -13,10 +13,6 @@ import java.util.Map;
  */
 
 
-/**
- * Enum removed as apparently it has suboptimal performance and memory usage in Android
- */
-
 // Define the question Types
 enum QuestionType {
     BUTTON, RADIO, CHECKBOX, TEXTENTRY

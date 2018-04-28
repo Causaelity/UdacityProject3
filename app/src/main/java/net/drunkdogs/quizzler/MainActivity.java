@@ -26,6 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Create variables and constants
     QuestionBank allQuestions = new QuestionBank();
     String pickedAnswer = "";
     int questionNumber = 0;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setup views
+        // Attach views to XML
         questionLabel = findViewById(R.id.question_textview);
         scoreLabel = findViewById(R.id.score_label);
         progressLabel = findViewById(R.id.progress_label);
@@ -99,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Hide all the Input Views
     private void hideAll() {
-
         buttonLayout.setVisibility(View.INVISIBLE);
         radioGroup.setVisibility(View.INVISIBLE);
         checkBoxLayout.setVisibility(View.INVISIBLE);
@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
     private void showTextEntry() {
         answerField.setVisibility(View.VISIBLE);
         submitButton.setVisibility(View.VISIBLE);
-
     }
 
     // Display next question and enable appropriate input mechanism. Else if game is over display alert
@@ -282,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
 
-        // In case you don't want the delay
+        // In case you don't want the delay comment above line and uncomment below line
 //        nextQuestion();
 
     }
@@ -298,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Verify if Answer was correct and inform user and add score
+    // Verify if Answer was correct and inform user then add score
     private void checkAnswer(String correctAnswer) {
 
         if (correctAnswer.equals(pickedAnswer)) {
@@ -309,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Inform user is answer was correct or not
+    // Inform user that answer is correct or not
     private void showToast(boolean value) {
         if (value) {
             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);

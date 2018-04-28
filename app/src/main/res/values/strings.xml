@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Quizzler</string>
+    <string name="hint">Name</string>
+    <string name="optionD">D</string>
+    <string name="optionC">C</string>
+    <string name="optionB">B</string>
+    <string name="optionA">A</string>
 </resources>

@@ -20,38 +20,24 @@
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="Civics Quiz"
-            android:textColor="#ffffff"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
 
         <TextView
             android:id="@+id/question_textview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_below="@+id/title_textview"
             android:layout_margin="8dp"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
-            tools:text="Question Goes Here."
-            android:textColor="#ffffff"
-
-            />
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:autoSizeMaxTextSize="18sp"-->
-            <!--android:autoSizeMinTextSize="10sp"-->
-            <!--android:autoSizeStepGranularity="2sp"-->
-            <!--android:autoSizeTextType="uniform"-->
-            <!--/>-->
-
-
+            tools:text="Question Goes Here." />
     </RelativeLayout>
 
     <RelativeLayout
@@ -68,27 +54,27 @@
             <Button
                 android:id="@+id/button_a"
                 style="@style/questionButton"
-                android:background="#2a9033"
-                android:text="A" />
+                android:background="@color/green"
+                android:text="@string/optionA" />
 
             <Button
                 android:id="@+id/button_b"
                 style="@style/questionButton"
-                android:background="#b32a35"
-                android:text="B" />
+                android:background="@color/red"
+                android:text="@string/optionB" />
 
             <Button
                 android:id="@+id/button_c"
                 style="@style/questionButton"
-                android:background="#ef3f1d"
-                android:text="C" />
+                android:background="@color/orange"
+                android:text="@string/optionC" />
 
             <Button
                 android:id="@+id/button_d"
                 style="@style/questionButton"
                 android:layout_marginRight="@dimen/buttonMargin"
-                android:background="#5123a1"
-                android:text="D" />
+                android:background="@color/purple"
+                android:text="@string/optionD" />
 
         </LinearLayout>
 
@@ -103,22 +89,22 @@
                 android:id="@+id/checkbox_a"
                 style="@style/checkBox"
                 android:layout_marginLeft="24dp"
-                android:text="A" />
+                android:text="@string/optionA" />
 
             <CheckBox
                 android:id="@+id/checkbox_b"
                 style="@style/checkBox"
-                android:text="B" />
+                android:text="@string/optionB" />
 
             <CheckBox
                 android:id="@+id/checkbox_c"
                 style="@style/checkBox"
-                android:text="C" />
+                android:text="@string/optionC" />
 
             <CheckBox
                 android:id="@+id/checkbox_d"
                 style="@style/checkBox"
-                android:text="D" />
+                android:text="@string/optionD" />
 
         </LinearLayout>
 
@@ -133,22 +119,22 @@
                 android:id="@+id/radiobutton_a"
                 style="@style/radioButton"
                 android:layout_marginLeft="24dp"
-                android:text="A" />
+                android:text="@string/optionA" />
 
             <RadioButton
                 android:id="@+id/radiobutton_b"
                 style="@style/radioButton"
-                android:text="B" />
+                android:text="@string/optionB" />
 
             <RadioButton
                 android:id="@+id/radiobutton_c"
                 style="@style/radioButton"
-                android:text="C" />
+                android:text="@string/optionC" />
 
             <RadioButton
                 android:id="@+id/radiobutton_d"
                 style="@style/radioButton"
-                android:text="D" />
+                android:text="@string/optionD" />
 
 
         </RadioGroup>
@@ -159,12 +145,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:backgroundTint="@color/colorStandard"
-            android:hint="Name"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/hint"
             android:inputType="text"
-            android:textColor="@color/colorStandard"
-            android:textColorHint="@color/colorStandard"
-            />
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
 
 
         <TextView
@@ -175,7 +160,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="36dp"
             android:layout_marginLeft="16dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@android:color/white"
             android:textSize="17sp"
             tools:text="x/99" />
 
@@ -187,7 +172,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="36dp"
             android:layout_marginRight="16dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@android:color/white"
             android:textSize="17sp"
             tools:text="Score: 9999" />
 
@@ -197,7 +182,7 @@
             android:layout_height="14dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:background="#dba714"
+            android:background="@color/gold"
 
             />
 
@@ -208,10 +193,10 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="24dp"
-            android:background="#dba714"
+            android:background="@color/gold"
             android:onClick="submitPressed"
             android:text="Submit"
-            android:textColor="#FFFFFF" />
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 </LinearLayout>
